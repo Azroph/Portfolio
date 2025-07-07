@@ -314,7 +314,7 @@ export default function ModernPortfolio() {
             <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-400 bg-clip-text text-transparent">
               Créateur
             </h1>
-            <h2 className="text-4xl md:text-6xl font-light mb-8 text-gray-700">d'expériences digitales</h2>
+            <h2 className="text-4xl md:text-6xl font-light mb-8 text-gray-700">d&#39;expériences digitales</h2>
             <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Je transforme vos idées en applications web modernes, performantes et élégantes qui marquent les esprits
             </p>
@@ -362,7 +362,7 @@ export default function ModernPortfolio() {
               À propos de moi
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Un développeur passionné par la création d'expériences web modernes et élégantes.
+              Un développeur passionné par la création d&#39;expériences web modernes et élégantes.
             </p>
           </div>
 
@@ -384,17 +384,17 @@ export default function ModernPortfolio() {
             {/* Texte de présentation */}
             <div className="w-full md:w-1/2 text-gray-700 text-lg leading-relaxed">
               <p className="mb-6">
-                Passionné par le développement web, j'aime transformer des idées en produits digitaux concrets et
-                impactants. Mon parcours m'a permis d'explorer de nombreux domaines : SaaS, e-commerce, design system,
+                Passionné par le développement web, j&#39;aime transformer des idées en produits digitaux concrets et
+                impactants. Mon parcours m&#39;a permis d&#39;explorer de nombreux domaines : SaaS, e-commerce, design system,
                 UI/UX…
               </p>
               <p className="mb-6">
-                J'accorde une grande importance à la qualité du code, à l'expérience utilisateur et à la collaboration.
-                Toujours curieux, je me forme en continu sur les nouvelles technologies et j'aime partager mes
+                J&#39;accorde une grande importance à la qualité du code, à l&#39;expérience utilisateur et à la collaboration.
+                Toujours curieux, je me forme en continu sur les nouvelles technologies et j&#39;aime partager mes
                 connaissances avec la communauté.
               </p>
               <p>
-                Mon objectif : créer des solutions élégantes, performantes et utiles, tout en gardant l'humain au centre
+                Mon objectif : créer des solutions élégantes, performantes et utiles, tout en gardant l&#39;humain au centre
                 de chaque projet.
               </p>
             </div>
@@ -463,7 +463,7 @@ export default function ModernPortfolio() {
             <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-slate-900 to-slate-400 bg-clip-text text-transparent">
               Mon parcours
             </h2>
-            <p className="text-xl text-gray-600">Une évolution constante vers l'excellence technique</p>
+            <p className="text-xl text-gray-600">Une évolution constante vers l&#39;excellence technique</p>
           </div>
 
           <div className="relative">
@@ -506,7 +506,7 @@ export default function ModernPortfolio() {
             <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-slate-900 to-slate-400 bg-clip-text text-transparent">
               Mes réalisations
             </h2>
-            <p className="text-xl text-gray-600">Une sélection de projets qui reflètent ma passion pour l'innovation</p>
+            <p className="text-xl text-gray-600">Une sélection de projets qui reflètent ma passion pour l&#39;innovation</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 mb-12">
