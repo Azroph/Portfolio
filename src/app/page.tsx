@@ -1,0 +1,699 @@
+"use client"
+
+import Image from "next/image"
+import { useState, useEffect, useRef } from "react"
+import {
+  ChevronDown,
+  ExternalLink,
+  Mail,
+  MapPin,
+  Calendar,
+  Code,
+  Palette,
+  Zap,
+  Github,
+  Linkedin,
+  Twitter,
+  ArrowRight,
+  Star,
+  Download,
+  Sparkles,
+  Heart,
+} from "lucide-react"
+
+const skills = [
+  { name: "React", level: 95, color: "from-blue-500 to-blue-600" },
+  { name: "Next.js", level: 90, color: "from-gray-800 to-gray-900" },
+  { name: "TypeScript", level: 85, color: "from-blue-600 to-blue-700" },
+  { name: "Node.js", level: 80, color: "from-green-500 to-green-600" },
+  { name: "Tailwind CSS", level: 95, color: "from-cyan-500 to-teal-500" },
+  { name: "Figma", level: 85, color: "from-purple-500 to-pink-500" },
+  { name: "MongoDB", level: 75, color: "from-green-600 to-emerald-600" },
+  { name: "NestJS", level: 70, color: "from-red-500 to-rose-500" },
+]
+
+const projects = [
+  {
+    title: "Awesome Portfolio",
+    description: "Un portfolio moderne et responsive pour développeur avec animations avancées et design system.",
+    image: "/placeholder.svg?height=300&width=400",
+    link: "#",
+    tags: ["React", "Next.js", "Framer Motion"],
+    featured: true,
+  },
+  {
+    title: "E-commerce App",
+    description: "Application e-commerce complète avec paiement intégré, gestion d'inventaire et dashboard admin.",
+    image: "/placeholder.svg?height=300&width=400",
+    link: "#",
+    tags: ["Next.js", "Stripe", "MongoDB"],
+    featured: true,
+  },
+  {
+    title: "Blog Tech",
+    description: "Blog technique avec markdown, système de commentaires et optimisation SEO avancée.",
+    image: "/placeholder.svg?height=300&width=400",
+    link: "#",
+    tags: ["Next.js", "MDX", "Prisma"],
+    featured: false,
+  },
+  {
+    title: "Dashboard Analytics",
+    description: "Dashboard d'analytics en temps réel avec graphiques interactifs et rapports personnalisés.",
+    image: "/placeholder.svg?height=300&width=400",
+    link: "#",
+    tags: ["React", "D3.js", "WebSocket"],
+    featured: false,
+  },
+]
+
+const experiences = [
+  {
+    company: "Bedrock Streaming",
+    title: "Développeur Frontend",
+    period: "2023 - Aujourd'hui",
+    description: "Développement d'applications de streaming sur TV (Core)",
+    icon: Code,
+    color: "from-slate-900 to-slate-400",
+  },
+  {
+    company: "Agence EVOL",
+    title: "Développeur Fullstack",
+    period: "2020 - 2023",
+    description:
+      "Développement Backend et Frontend de sites internet sur mesure",
+    icon: Palette,
+    color: "from-slate-900 to-slate-400",
+  },
+]
+
+export default function ModernPortfolio() {
+  const [activeSection, setActiveSection] = useState("home")
+  const [scrollY, setScrollY] = useState(0)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [isMoving, setIsMoving] = useState(false)
+  const [lastMove, setLastMove] = useState(Date.now())
+  const [waveAmount, setWaveAmount] = useState(0)
+  const POINTS = 20;
+  const [globalPhase, setGlobalPhase] = useState(0);
+  const [targetPhase, setTargetPhase] = useState(0);
+  const [isHoveringLink, setIsHoveringLink] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY)
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY })
+      setIsMoving(true)
+      setLastMove(Date.now())
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("mousemove", handleMouseMove)
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("mousemove", handleMouseMove)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!isMoving) return;
+    const timeout = setTimeout(() => {
+      if (Date.now() - lastMove > 80) setIsMoving(false)
+    }, 100)
+    return () => clearTimeout(timeout)
+  }, [isMoving, lastMove])
+
+  useEffect(() => {
+    let animId: number | undefined;
+    function animate() {
+      setWaveAmount((prev) => {
+        if (isMoving) {
+          return prev < 0.5 ? Math.min(0.5, prev + 0.03) : 0.5;
+        } else {
+          return prev > 0 ? Math.max(0, prev - 0.02) : 0;
+        }
+      });
+      setTargetPhase((prev) => (isMoving && Math.random() < 0.02 ? prev + (Math.random() - 0.5) * Math.PI : prev));
+      setGlobalPhase((prev) => prev + (targetPhase - prev) * 0.08);
+      animId = requestAnimationFrame(animate);
+    }
+    animId = requestAnimationFrame(animate);
+    return () => {
+      if (animId !== undefined) cancelAnimationFrame(animId);
+    };
+  }, [isMoving, targetPhase]);
+
+  useEffect(() => {
+    function onMouseMove(e: MouseEvent) {
+      const el = document.elementFromPoint(e.clientX, e.clientY) as HTMLElement | null;
+      let current = el;
+      while (current) {
+        if (
+          (current.tagName === 'A' && (current as HTMLAnchorElement).href) ||
+          current.tagName === 'BUTTON' ||
+          current.getAttribute('role') === 'button'
+        ) {
+          setIsHoveringLink(true);
+          return;
+        }
+        current = current.parentElement;
+      }
+      setIsHoveringLink(false);
+    }
+    window.addEventListener('mousemove', onMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', onMouseMove);
+    };
+  }, []);
+
+  // Style global pour forcer le cursor: none partout sauf sur lien/bouton
+  useEffect(() => {
+    let styleTag = document.getElementById('force-cursor-none') as HTMLStyleElement | null;
+    if (!styleTag) {
+      styleTag = document.createElement('style');
+      styleTag.id = 'force-cursor-none';
+      document.head.appendChild(styleTag);
+    }
+    if (!isHoveringLink) {
+      styleTag.innerHTML = `* { cursor: none !important; }`;
+    } else {
+      styleTag.innerHTML = '';
+    }
+    return () => {
+      if (styleTag) styleTag.innerHTML = '';
+    };
+  }, [isHoveringLink]);
+
+  // Génération du path SVG d'un cercle ondulé
+  function getWavyCirclePath(cx: number, cy: number, r: number, amplitude: number, phase: number, points = POINTS) {
+    let d = "";
+    for (let i = 0; i <= points; i++) {
+      const theta = (i / points) * 2 * Math.PI;
+      // Onde sinusoïdale douce, 1 cycle
+      const localAmp = amplitude * Math.sin(theta + phase);
+      const rad = r + localAmp;
+      const x = cx + rad * Math.cos(theta);
+      const y = cy + rad * Math.sin(theta);
+      d += i === 0 ? `M${x},${y}` : `L${x},${y}`;
+    }
+    d += "Z";
+    return d;
+  }
+
+  return (
+    <div
+      className="relative min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 text-gray-900 overflow-x-hidden"
+      style={{ cursor: isHoveringLink ? "pointer" : "none" }}
+    >
+      {/* Cursor follower */}
+      {!isHoveringLink && (
+        <svg
+          width={28}
+          height={28}
+          className="fixed pointer-events-none z-50"
+          style={{
+            left: mousePosition.x - 14,
+            top: mousePosition.y - 14,
+            position: "fixed",
+            transform: `scale(${activeSection === "home" ? 1.5 : 1})`,
+          }}
+        >
+          <defs>
+            <linearGradient id="cursorGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#0f172a" />
+              <stop offset="100%" stopColor="#94a3b8" />
+            </linearGradient>
+          </defs>
+          <path
+            d={getWavyCirclePath(14, 14, 10, waveAmount, globalPhase)}
+            fill="url(#cursorGrad)"
+          />
+        </svg>
+      )}
+
+      {/* Animated background */}
+      <div className="fixed inset-0 -z-10">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(120,119,198,0.1),rgba(255,255,255,0))]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(236,72,153,0.1),rgba(255,255,255,0))]" />
+        <div
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-violet-200/40 to-purple-200/40 rounded-full blur-3xl"
+          style={{ transform: `translate(${scrollY * 0.1}px, ${scrollY * 0.05}px)` }}
+        />
+        <div
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-blue-200/40 to-cyan-200/40 rounded-full blur-3xl"
+          style={{ transform: `translate(${-scrollY * 0.1}px, ${-scrollY * 0.05}px)` }}
+        />
+        <div
+          className="absolute top-3/4 left-1/2 w-64 h-64 bg-gradient-to-r from-pink-200/30 to-rose-200/30 rounded-full blur-2xl"
+          style={{ transform: `translate(${scrollY * 0.15}px, ${-scrollY * 0.1}px)` }}
+        />
+      </div>
+
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-40 bg-slate-50/80 backdrop-blur-xl border-b border-slate-200/50 shadow-sm">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="relative">
+                <div className="w-12 h-12 bg-gradient-to-r from-slate-900 to-slate-400 rounded-2xl flex items-center justify-center font-bold text-lg text-white shadow-lg">
+                  AF
+                </div>
+                <div className="absolute -inset-1 bg-gradient-to-r from-slate-900 to-slate-400 rounded-2xl blur opacity-20" />
+              </div>
+              <div>
+                <h1 className="text-xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
+                  Antoine Falgiglio
+                </h1>
+                <p className="text-sm text-slate-500">Développeur Fullstack</p>
+              </div>
+            </div>
+
+            <div className="hidden md:flex items-center space-x-8">
+              {["Accueil", "À propos", "Expériences", "Projets", "Contact"].map((item, index) => (
+                <a
+                  key={item}
+                  href={`#${item.toLowerCase().replace("à propos", "about").replace("expériences", "experience")}`}
+                  className="relative text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors duration-300 group"
+                  onClick={() => setActiveSection(item.toLowerCase())}
+                >
+                  {item}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-slate-900 to-slate-400 group-hover:w-full transition-all duration-300" />
+                </a>
+              ))}
+            </div>
+
+            <div className="flex items-center space-x-3">
+              <a
+                href="https://github.com/Azroph"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors duration-300 group"
+              >
+                <Github className="w-5 h-5 text-slate-700 group-hover:text-slate-900" />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/antoine-falgiglio/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors duration-300 group"
+              >
+                <Linkedin className="w-5 h-5 text-slate-600 group-hover:text-slate-700" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section id="accueil" className="relative min-h-screen flex items-center justify-center px-6 pt-20">
+        <div className="max-w-5xl mx-auto text-center">
+          <div className="mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 rounded-full text-slate-800 font-medium text-sm mb-6">
+              <Sparkles className="w-4 h-4" />
+              Disponible pour de nouveaux projets
+            </div>
+            <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-400 bg-clip-text text-transparent">
+              Créateur
+            </h1>
+            <h2 className="text-4xl md:text-6xl font-light mb-8 text-gray-700">d'expériences digitales</h2>
+            <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Je transforme vos idées en applications web modernes, performantes et élégantes qui marquent les esprits
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
+            <a href="#projets" className="group relative px-8 py-4 bg-gradient-to-r from-slate-900 to-slate-500 text-white rounded-2xl font-semibold text-lg hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl">
+              <span className="relative z-10 flex items-center gap-2">
+                Voir mes projets
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-800 to-slate-400 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </a>
+
+            <button className="group px-8 py-4 border-2 border-gray-300 hover:border-slate-600 rounded-2xl font-semibold text-lg hover:bg-slate-50 transition-all duration-300 flex items-center gap-2 text-gray-700 hover:text-slate-800">
+              <Download className="w-5 h-5" />
+              Télécharger CV
+            </button>
+          </div>
+
+          <div className="flex justify-center items-center space-x-8 text-sm text-gray-500">
+            <div className="flex items-center gap-2 px-4 py-2 bg-white/60 rounded-full backdrop-blur-sm">
+              <MapPin className="w-4 h-4 text-slate-700" />
+              Lyon, France
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2 bg-white/60 rounded-full backdrop-blur-sm">
+              <Calendar className="w-4 h-4 text-slate-400" />
+              Disponible
+            </div>
+          </div>
+        </div>
+
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <div className="p-2 bg-white/80 rounded-full shadow-lg">
+            <ChevronDown className="w-6 h-6 text-gray-600" />
+          </div>
+        </div>
+      </section>
+
+      {/* À propos */}
+      <section id="about" className="py-20 px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-slate-900 to-slate-400 bg-clip-text text-transparent">
+              À propos de moi
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Un développeur passionné par la création d'expériences web modernes et élégantes.
+            </p>
+          </div>
+
+          <div className="flex flex-col md:flex-row items-center gap-12 mb-12">
+            {/* Photo de travail */}
+            <div className="relative w-full md:w-[48%] flex justify-center">
+              <div className="w-64 h-64 md:w-[360px] md:h-[320px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white flex-shrink-0">
+                <Image
+                  src="/Antoine Falgiglio Developpeur Web.jpg"
+                  alt="Antoine Falgiglio Developpeur Web"
+                  width={360}
+                  height={320}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+              <div className="absolute -inset-2 bg-gradient-to-r from-slate-900 to-slate-400 rounded-3xl blur opacity-20" />
+            </div>
+
+            {/* Texte de présentation */}
+            <div className="w-full md:w-1/2 text-gray-700 text-lg leading-relaxed">
+              <p className="mb-6">
+                Passionné par le développement web, j'aime transformer des idées en produits digitaux concrets et
+                impactants. Mon parcours m'a permis d'explorer de nombreux domaines : SaaS, e-commerce, design system,
+                UI/UX…
+              </p>
+              <p className="mb-6">
+                J'accorde une grande importance à la qualité du code, à l'expérience utilisateur et à la collaboration.
+                Toujours curieux, je me forme en continu sur les nouvelles technologies et j'aime partager mes
+                connaissances avec la communauté.
+              </p>
+              <p>
+                Mon objectif : créer des solutions élégantes, performantes et utiles, tout en gardant l'humain au centre
+                de chaque projet.
+              </p>
+            </div>
+          </div>
+
+          {/* Compétences */}
+          <div className="grid md:grid-cols-2 gap-8 mt-16">
+            {/* Card compétences techniques */}
+            <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-8 border border-gray-200/50 shadow-xl hover:shadow-2xl transition-all duration-300 group">
+              <div className="mb-6 flex items-center gap-3">
+                <div className="p-3 bg-gradient-to-r from-slate-900 to-slate-400 rounded-2xl">
+                  <Code className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-400 bg-clip-text text-transparent">
+                  Compétences techniques
+                </h3>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                {skills.map((skill) => (
+                  <span
+                    key={skill.name}
+                    className="px-4 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-slate-100 to-slate-200 text-slate-800 hover:from-slate-200 hover:to-slate-300 transition-all duration-200 cursor-default"
+                  >
+                    {skill.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Card soft skills */}
+            <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-8 border border-gray-200/50 shadow-xl hover:shadow-2xl transition-all duration-300 group">
+              <div className="mb-6 flex items-center gap-3">
+                <div className="p-3 bg-gradient-to-r from-slate-900 to-slate-400 rounded-2xl">
+                  <Zap className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-400 bg-clip-text text-transparent">
+                  Soft skills
+                </h3>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                {[
+                  "Travail en équipe",
+                  "Communication",
+                  "Créativité",
+                  "Esprit d'analyse",
+                  "Curiosité",
+                  "Adaptabilité",
+                ].map((skill) => (
+                  <span
+                    key={skill}
+                    className="px-4 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-slate-100 to-slate-200 text-slate-800 hover:from-slate-200 hover:to-slate-300 transition-all duration-200 cursor-default"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Experience Section */}
+      <section id="experience" className="py-20 px-6 bg-gradient-to-b from-gray-50/50 to-white/50">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-slate-900 to-slate-400 bg-clip-text text-transparent">
+              Mon parcours
+            </h2>
+            <p className="text-xl text-gray-600">Une évolution constante vers l'excellence technique</p>
+          </div>
+
+          <div className="relative">
+            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-slate-900 via-slate-400 to-slate-200" />
+
+            {experiences.map((exp, index) => {
+              const Icon = exp.icon
+              return (
+                <div key={exp.company} className="relative flex items-start mb-12 group">
+                  <div
+                    className={`absolute left-6 w-4 h-4 bg-gradient-to-r ${exp.color} rounded-full border-4 border-white shadow-lg group-hover:scale-125 transition-transform duration-300`}
+                  />
+
+                  <div className="ml-20 bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 group-hover:border-slate-200 transition-all duration-300 w-full shadow-lg hover:shadow-xl">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex items-center gap-4">
+                        <div className={`p-3 bg-gradient-to-r from-slate-900 to-slate-400 rounded-xl shadow-lg`}>
+                          <Icon className="w-6 h-6 text-white" />
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-bold text-gray-900">{exp.title}</h3>
+                          <p className="text-slate-800 font-medium">{exp.company}</p>
+                        </div>
+                      </div>
+                      <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">{exp.period}</span>
+                    </div>
+                    <p className="text-gray-700 leading-relaxed">{exp.description}</p>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section id="projets" className="py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-slate-900 to-slate-400 bg-clip-text text-transparent">
+              Mes réalisations
+            </h2>
+            <p className="text-xl text-gray-600">Une sélection de projets qui reflètent ma passion pour l'innovation</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 mb-12">
+            {projects
+              .filter((p) => p.featured)
+              .map((project, index) => (
+                <div key={project.title} className="group relative">
+                  <div className="relative bg-white/80 backdrop-blur-xl rounded-3xl overflow-hidden border border-gray-200/50 group-hover:border-slate-400 transition-all duration-500 group-hover:scale-[1.02] shadow-xl hover:shadow-2xl">
+                    <div className="relative h-64 overflow-hidden">
+                      <Image
+                        src={project.image || "/placeholder.svg"}
+                        alt={project.title}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                      <div className="absolute top-4 right-4">
+                        <div className="p-2 bg-white/90 rounded-full">
+                          <Star className="w-5 h-5 text-yellow-500 fill-current" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-slate-800 transition-colors duration-300">
+                        {project.title}
+                      </h3>
+                      <p className="text-gray-600 mb-4 leading-relaxed">{project.description}</p>
+
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {project.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="px-3 py-1 bg-gray-100 rounded-full text-xs text-gray-600 font-medium"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      <a
+                        href={project.link}
+                        className="inline-flex items-center gap-2 text-slate-800 hover:text-slate-400 font-medium group/link"
+                      >
+                        Voir le projet
+                        <ExternalLink className="w-4 h-4 group-hover/link:translate-x-1 transition-transform duration-300" />
+                      </a>
+                    </div>
+                  </div>
+                  <div className="absolute -inset-1 bg-gradient-to-r from-slate-900/20 to-slate-400/20 rounded-3xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                </div>
+              ))}
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {projects
+              .filter((p) => !p.featured)
+              .map((project, index) => (
+                <div key={project.title} className="group relative">
+                  <div className="bg-white/60 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 group-hover:border-slate-400 transition-all duration-300 shadow-lg hover:shadow-xl">
+                    <div className="flex items-start gap-4">
+                      <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 shadow-md">
+                        <Image
+                          src={project.image || "/placeholder.svg"}
+                          alt={project.title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-slate-800 transition-colors duration-300">
+                          {project.title}
+                        </h3>
+                        <p className="text-gray-600 text-sm mb-3">{project.description}</p>
+                        <div className="flex flex-wrap gap-1 mb-3">
+                          {project.tags.map((tag) => (
+                            <span key={tag} className="px-2 py-1 bg-gray-100 rounded text-xs text-gray-500">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                        <a
+                          href={project.link}
+                          className="inline-flex items-center gap-1 text-slate-800 hover:text-slate-400 text-sm font-medium"
+                        >
+                          Voir
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-20 px-6 bg-gradient-to-b from-gray-50/50 to-white/50">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-slate-900 to-slate-400 bg-clip-text text-transparent">
+              Travaillons ensemble
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Vous avez un projet en tête ? Discutons de la façon dont je peux vous aider à le concrétiser
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
+            <div className="group bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 hover:border-slate-200 transition-all duration-300 shadow-lg hover:shadow-xl">
+              <div className="p-3 bg-gradient-to-r from-slate-500 to-slate-600 rounded-2xl w-fit mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                <Mail className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2">Email</h3>
+              <p className="text-gray-600 text-sm mb-4">Réponse sous 24h</p>
+              <a href="mailto:antoine.falgiglio@email.com" className="text-slate-600 hover:text-slate-700 font-medium">
+                antoine.falgiglio@gmail.com
+              </a>
+            </div>
+
+            <div className="group bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 hover:border-slate-200 transition-all duration-300 shadow-lg hover:shadow-xl">
+              <div className="p-3 bg-gradient-to-r from-slate-500 to-slate-600 rounded-2xl w-fit mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                <Linkedin className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2">LinkedIn</h3>
+              <p className="text-gray-600 text-sm mb-4">Restons connectés</p>
+              <a href="#" className="text-slate-600 hover:text-slate-700 font-medium">
+                /in/antoine-falgiglio
+              </a>
+            </div>
+
+            <div className="group bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 hover:border-gray-300 transition-all duration-300 shadow-lg hover:shadow-xl">
+              <div className="p-3 bg-gradient-to-r from-gray-700 to-gray-800 rounded-2xl w-fit mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                <Github className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2">GitHub</h3>
+              <p className="text-gray-600 text-sm mb-4">Voir mon code</p>
+              <a href="#" className="text-gray-700 hover:text-gray-800 font-medium">
+                /antoine-falgiglio
+              </a>
+            </div>
+          </div>
+
+          <button className="group relative px-12 py-4 bg-gradient-to-r from-slate-900 to-slate-500 text-white rounded-2xl font-bold text-lg hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl">
+            <span className="relative z-10 flex items-center gap-2">
+              <Mail className="w-5 h-5" />
+              Démarrer un projet
+            </span>
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-800 to-slate-400 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          </button>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-12 px-6 border-t border-slate-200/50 bg-slate-50/50">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 bg-gradient-to-r from-slate-900 to-slate-400 rounded-xl flex items-center justify-center font-bold text-white shadow-lg">
+                AF
+              </div>
+              <div>
+                <p className="text-slate-800 font-medium">Antoine Falgiglio</p>
+                <p className="text-slate-500 text-sm">Développeur Fullstack</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <a href="https://github.com/Azroph" target="_blank" rel="noopener noreferrer" className="p-2 text-slate-600 hover:text-slate-900 transition-colors duration-300">
+                <Github className="w-5 h-5" />
+              </a>
+              <a href="https://www.linkedin.com/in/antoine-falgiglio/" target="_blank" rel="noopener noreferrer" className="p-2 text-slate-600 hover:text-slate-700 transition-colors duration-300">
+                <Linkedin className="w-5 h-5" />
+              </a>
+            </div>
+          </div>
+
+          <div className="mt-8 pt-8 border-t border-slate-200/50 text-center">
+            <p className="text-slate-500 text-sm">
+              © 2025 Antoine Falgiglio. Conçu avec passion et Next.js. Tous droits réservés.
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  )
+}
