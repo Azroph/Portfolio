@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import {
   ChevronDown,
   ExternalLink,
@@ -13,12 +13,10 @@ import {
   Zap,
   Github,
   Linkedin,
-  Twitter,
   ArrowRight,
   Star,
   Download,
   Sparkles,
-  Heart,
 } from "lucide-react"
 
 const skills = [
@@ -270,7 +268,7 @@ export default function ModernPortfolio() {
             </div>
 
             <div className="hidden md:flex items-center space-x-8">
-              {["Accueil", "À propos", "Expériences", "Projets", "Contact"].map((item, index) => (
+              {["Accueil", "À propos", "Expériences", "Projets", "Contact"].map((item) => (
                 <a
                   key={item}
                   href={`#${item.toLowerCase().replace("à propos", "about").replace("expériences", "experience")}`}
@@ -471,7 +469,7 @@ export default function ModernPortfolio() {
           <div className="relative">
             <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-slate-900 via-slate-400 to-slate-200" />
 
-            {experiences.map((exp, index) => {
+            {experiences.map((exp) => {
               const Icon = exp.icon
               return (
                 <div key={exp.company} className="relative flex items-start mb-12 group">
@@ -514,7 +512,7 @@ export default function ModernPortfolio() {
           <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 mb-12">
             {projects
               .filter((p) => p.featured)
-              .map((project, index) => (
+              .map((project) => (
                 <div key={project.title} className="group relative">
                   <div className="relative bg-white/80 backdrop-blur-xl rounded-3xl overflow-hidden border border-gray-200/50 group-hover:border-slate-400 transition-all duration-500 group-hover:scale-[1.02] shadow-xl hover:shadow-2xl">
                     <div className="relative h-64 overflow-hidden">
@@ -566,7 +564,7 @@ export default function ModernPortfolio() {
           <div className="grid md:grid-cols-2 gap-6">
             {projects
               .filter((p) => !p.featured)
-              .map((project, index) => (
+              .map((project) => (
                 <div key={project.title} className="group relative">
                   <div className="bg-white/60 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 group-hover:border-slate-400 transition-all duration-300 shadow-lg hover:shadow-xl">
                     <div className="flex items-start gap-4">
