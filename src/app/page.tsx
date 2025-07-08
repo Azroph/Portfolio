@@ -43,7 +43,7 @@ const projects = [
     title: "Site d'affiliation jeuxplateau.fr",
     description: "Comparateur de produits et blog sur les jeux de plateaux",
     image: "/jeuxplateau.png",
-    link: "#",
+    link: "https://www.jeuxplateau.fr/",
     tags: ["Astro.js", "Tailwind"],
     featured: true,
   },
@@ -191,14 +191,14 @@ export default function ModernPortfolio() {
       {/* Cursor follower */}
       {!isHoveringLink && (
         <svg
-          width={28}
-          height={28}
+          width={36}
+          height={36}
           className="fixed pointer-events-none z-50"
           style={{
-            left: mousePosition.x - 14,
-            top: mousePosition.y - 14,
+            left: mousePosition.x - 18,
+            top: mousePosition.y - 18,
             position: "fixed",
-            transform: `scale(${activeSection === "home" ? 1.5 : 1})`,
+            transform: `scale(${activeSection === "home" ? 1.7 : 1})`,
           }}
         >
           <defs>
@@ -208,7 +208,7 @@ export default function ModernPortfolio() {
             </linearGradient>
           </defs>
           <path
-            d={getWavyCirclePath(14, 14, 10, waveAmount, globalPhase)}
+            d={getWavyCirclePath(18, 18, 14, waveAmount, globalPhase)}
             fill="url(#cursorGrad)"
           />
         </svg>
@@ -524,51 +524,97 @@ export default function ModernPortfolio() {
             {projects
               .filter((p) => p.featured)
               .map((project) => (
-                <div key={project.title} className="group relative">
-                  <div className="relative bg-white/80 backdrop-blur-xl rounded-3xl overflow-hidden border border-gray-200/50 group-hover:border-slate-400 transition-all duration-500 group-hover:scale-[1.02] shadow-xl hover:shadow-2xl">
-                    <div className="relative h-48 sm:h-64 overflow-hidden">
-                      <Image
-                        src={project.image || "/placeholder.svg"}
-                        alt={project.title}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                      <div className="absolute top-2 sm:top-4 right-2 sm:right-4">
-                        <div className="p-2 bg-white/90 rounded-full">
-                          <Star className="w-5 h-5 text-yellow-500 fill-current" />
+                project.link === 'https://www.jeuxplateau.fr/' ? (
+                  <a
+                    key={project.title}
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative block"
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <div className="relative bg-white/80 backdrop-blur-xl rounded-3xl overflow-hidden border border-gray-200/50 group-hover:border-slate-400 transition-all duration-500 group-hover:scale-[1.02] shadow-xl hover:shadow-2xl">
+                      <div className="relative h-48 sm:h-64 overflow-hidden">
+                        <Image
+                          src={project.image || "/placeholder.svg"}
+                          alt={project.title}
+                          fill
+                          className="object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                        <div className="absolute top-2 sm:top-4 right-2 sm:right-4">
+                          <div className="p-2 bg-white/90 rounded-full">
+                            <Star className="w-5 h-5 text-yellow-500 fill-current" />
+                          </div>
                         </div>
                       </div>
-                    </div>
-
-                    <div className="p-4 sm:p-6">
-                      <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-1 sm:mb-2 group-hover:text-slate-800 transition-colors duration-300">
-                        {project.title}
-                      </h3>
-                      <p className="text-gray-600 mb-2 sm:mb-4 leading-relaxed text-sm sm:text-base">{project.description}</p>
-
-                      <div className="flex flex-wrap gap-1 sm:gap-2 mb-2 sm:mb-4">
-                        {project.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-2 sm:px-3 py-1 bg-gray-100 rounded-full text-xs text-gray-600 font-medium"
-                          >
-                            {tag}
-                          </span>
-                        ))}
+                      <div className="p-4 sm:p-6">
+                        <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-1 sm:mb-2 group-hover:text-slate-800 transition-colors duration-300">
+                          {project.title}
+                        </h3>
+                        <p className="text-gray-600 mb-2 sm:mb-4 leading-relaxed text-sm sm:text-base">{project.description}</p>
+                        <div className="flex flex-wrap gap-1 sm:gap-2 mb-2 sm:mb-4">
+                          {project.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="px-2 sm:px-3 py-1 bg-gray-100 rounded-full text-xs text-gray-600 font-medium"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                        <span className="inline-flex items-center gap-1 sm:gap-2 text-slate-800 hover:text-slate-400 font-medium group/link text-sm sm:text-base cursor-pointer">
+                          Voir le projet
+                          <ExternalLink className="w-4 h-4 group-hover/link:translate-x-1 transition-transform duration-300" />
+                        </span>
                       </div>
-
-                      <a
-                        href={project.link}
-                        className="inline-flex items-center gap-1 sm:gap-2 text-slate-800 hover:text-slate-400 font-medium group/link text-sm sm:text-base"
-                      >
-                        Voir le projet
-                        <ExternalLink className="w-4 h-4 group-hover/link:translate-x-1 transition-transform duration-300" />
-                      </a>
                     </div>
+                    <div className="absolute -inset-1 bg-gradient-to-r from-slate-900/20 to-slate-400/20 rounded-3xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                  </a>
+                ) : (
+                  <div key={project.title} className="group relative">
+                    <div className="relative bg-white/80 backdrop-blur-xl rounded-3xl overflow-hidden border border-gray-200/50 group-hover:border-slate-400 transition-all duration-500 group-hover:scale-[1.02] shadow-xl hover:shadow-2xl">
+                      <div className="relative h-48 sm:h-64 overflow-hidden">
+                        <Image
+                          src={project.image || "/placeholder.svg"}
+                          alt={project.title}
+                          fill
+                          className="object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                        <div className="absolute top-2 sm:top-4 right-2 sm:right-4">
+                          <div className="p-2 bg-white/90 rounded-full">
+                            <Star className="w-5 h-5 text-yellow-500 fill-current" />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="p-4 sm:p-6">
+                        <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-1 sm:mb-2 group-hover:text-slate-800 transition-colors duration-300">
+                          {project.title}
+                        </h3>
+                        <p className="text-gray-600 mb-2 sm:mb-4 leading-relaxed text-sm sm:text-base">{project.description}</p>
+                        <div className="flex flex-wrap gap-1 sm:gap-2 mb-2 sm:mb-4">
+                          {project.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="px-2 sm:px-3 py-1 bg-gray-100 rounded-full text-xs text-gray-600 font-medium"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                        <a
+                          href={project.link}
+                          className="inline-flex items-center gap-1 sm:gap-2 text-slate-800 hover:text-slate-400 font-medium group/link text-sm sm:text-base cursor-pointer"
+                        >
+                          Voir le projet
+                          <ExternalLink className="w-4 h-4 group-hover/link:translate-x-1 transition-transform duration-300" />
+                        </a>
+                      </div>
+                    </div>
+                    <div className="absolute -inset-1 bg-gradient-to-r from-slate-900/20 to-slate-400/20 rounded-3xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                   </div>
-                  <div className="absolute -inset-1 bg-gradient-to-r from-slate-900/20 to-slate-400/20 rounded-3xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                </div>
+                )
               ))}
           </div>
 
