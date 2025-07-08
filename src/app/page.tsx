@@ -496,7 +496,7 @@ export default function ModernPortfolio() {
           <div className="relative">
             <div className="absolute left-4 sm:left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-slate-900 via-slate-400 to-slate-200" />
 
-            {experiences.map((exp, index) => {
+            {experiences.map((exp) => {
               const Icon = exp.icon
               return (
                 <div key={exp.company} className="relative flex flex-col sm:flex-row items-start mb-8 sm:mb-12 group">
