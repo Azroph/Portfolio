@@ -47,22 +47,6 @@ const projects = [
     tags: ["Astro.js", "Tailwind"],
     featured: true,
   },
-  {
-    title: "Blog Tech",
-    description: "Blog technique avec markdown, système de commentaires et optimisation SEO avancée.",
-    image: "/placeholder.svg?height=300&width=400",
-    link: "#",
-    tags: ["Next.js", "MDX", "Prisma"],
-    featured: false,
-  },
-  {
-    title: "Dashboard Analytics",
-    description: "Dashboard d'analytics en temps réel avec graphiques interactifs et rapports personnalisés.",
-    image: "/placeholder.svg?height=300&width=400",
-    link: "#",
-    tags: ["React", "D3.js", "WebSocket"],
-    featured: false,
-  },
 ]
 
 const experiences = [
