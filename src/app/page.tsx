@@ -22,29 +22,29 @@ import {
 const skills = [
   { name: "React", level: 95, color: "from-blue-500 to-blue-600" },
   { name: "Next.js", level: 90, color: "from-gray-800 to-gray-900" },
+  { name: "Redux", level: 85, color: "from-purple-500 to-pink-500" },
   { name: "TypeScript", level: 85, color: "from-blue-600 to-blue-700" },
   { name: "Node.js", level: 80, color: "from-green-500 to-green-600" },
   { name: "Tailwind CSS", level: 95, color: "from-cyan-500 to-teal-500" },
-  { name: "Figma", level: 85, color: "from-purple-500 to-pink-500" },
   { name: "MongoDB", level: 75, color: "from-green-600 to-emerald-600" },
-  { name: "NestJS", level: 70, color: "from-red-500 to-rose-500" },
+  { name: "Figma", level: 70, color: "from-red-500 to-rose-500" },
 ]
 
 const projects = [
   {
-    title: "Awesome Portfolio",
-    description: "Un portfolio moderne et responsive pour développeur avec animations avancées et design system.",
+    title: "Application M6+",
+    description: "Projet en entreprise pour la société Bedrock Streaming",
     image: "/placeholder.svg?height=300&width=400",
     link: "#",
-    tags: ["React", "Next.js", "Framer Motion"],
+    tags: ["React", "Redux", "Typescript"],
     featured: true,
   },
   {
-    title: "E-commerce App",
-    description: "Application e-commerce complète avec paiement intégré, gestion d'inventaire et dashboard admin.",
-    image: "/placeholder.svg?height=300&width=400",
+    title: "Site d'affiliation jeuxplateau.fr",
+    description: "Comparateur de produits et blog sur les jeux de plateaux",
+    image: "/jeuxplateau.png",
     link: "#",
-    tags: ["Next.js", "Stripe", "MongoDB"],
+    tags: ["Astro.js", "Tailwind"],
     featured: true,
   },
   {
@@ -651,7 +651,13 @@ export default function ModernPortfolio() {
             </div>
           </div>
 
-          <button className="group relative px-12 py-4 bg-gradient-to-r from-slate-900 to-slate-500 text-white rounded-2xl font-bold text-lg hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl">
+          <button
+            className="group relative px-12 py-4 bg-gradient-to-r from-slate-900 to-slate-500 text-white rounded-2xl font-bold text-lg hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl"
+            style={{ cursor: 'pointer' }}
+            onClick={() => { window.location.href = 'mailto:antoine.falgiglio@gmail.com'; }}
+            onMouseEnter={() => setIsHoveringLink(true)}
+            onMouseLeave={() => setIsHoveringLink(false)}
+          >
             <span className="relative z-10 flex items-center gap-2">
               <Mail className="w-5 h-5" />
               Démarrer un projet
