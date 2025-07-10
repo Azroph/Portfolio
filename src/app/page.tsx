@@ -340,10 +340,16 @@ export default function ModernPortfolio() {
               <div className="absolute inset-0 bg-gradient-to-r from-slate-800 to-slate-400 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </a>
 
-            <button className="group px-6 sm:px-8 py-3 sm:py-4 border-2 border-gray-300 hover:border-slate-600 rounded-2xl font-semibold text-base sm:text-lg hover:bg-slate-50 transition-all duration-300 flex items-center gap-2 text-gray-700 hover:text-slate-800">
+            <a
+              href="/CV%202025.pdf"
+              download
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group px-6 sm:px-8 py-3 sm:py-4 border-2 border-gray-300 hover:border-slate-600 rounded-2xl font-semibold text-base sm:text-lg hover:bg-slate-50 transition-all duration-300 flex items-center gap-2 text-gray-700 hover:text-slate-800"
+            >
               <Download className="w-5 h-5" />
               Télécharger CV
-            </button>
+            </a>
           </div>
 
           <div className="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-8 text-xs sm:text-sm text-gray-500">
