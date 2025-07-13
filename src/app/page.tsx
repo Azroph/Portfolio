@@ -508,7 +508,7 @@ export default function ModernPortfolio() {
                     </div>
                     {exp.company === "Bedrock Streaming" && (
                       <h4 className="text-base sm:text-lg font-semibold text-slate-800 mb-2">
-                        Développement d'applications de streaming sur TV (Core)
+                        Développement d&#39;applications de streaming sur TV (Core)
                       </h4>
                     )}
                     {exp.company === "Agence EVOL" && (
