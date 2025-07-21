@@ -464,8 +464,12 @@ export default function ModernPortfolio() {
             {educations.map((edu, idx) => (
               <div key={edu.title + edu.date + idx} className="flex items-center bg-white/80 rounded-xl border border-gray-200/50 p-4 shadow min-h-[72px]">
                 <div className="flex-shrink-0 mr-4">
-                  <div className="w-14 h-14 rounded-full overflow-hidden border border-gray-200 bg-gray-100 flex items-center justify-center">
-                    <img src={edu.image} alt={edu.title} className="object-cover w-full h-full" />
+                  <div className="w-14 h-14 rounded-full border border-gray-200 bg-gradient-to-r from-slate-900 to-slate-400 flex items-center justify-center">
+                    {idx < 3 ? (
+                      <Code className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                    ) : (
+                      <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                    )}
                   </div>
                 </div>
                 <div className="flex-1 text-gray-700">
