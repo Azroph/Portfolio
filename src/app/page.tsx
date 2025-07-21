@@ -180,10 +180,10 @@ export default function ModernPortfolio() {
 
             {/* Desktop nav */}
             <div className="hidden md:flex items-center space-x-6 md:space-x-8">
-              {["Accueil", "À propos", "Expériences", "Projets", "Contact"].map((item) => (
+              {["Accueil", "À propos", "Expériences", "Formations", "Projets", "Contact"].map((item) => (
                 <a
                   key={item}
-                  href={`#${item.toLowerCase().replace("à propos", "about").replace("expériences", "experience")}`}
+                  href={`#${item.toLowerCase().replace("à propos", "about").replace("expériences", "experience").replace("formations", "formations")}`}
                   className="relative text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors duration-300 group"
                   onClick={() => setActiveSection(item.toLowerCase())}
                 >
@@ -226,10 +226,10 @@ export default function ModernPortfolio() {
           {/* Mobile menu */}
           {activeSection === 'menu' && (
             <div className="md:hidden mt-2 flex flex-col space-y-2 bg-white rounded-xl shadow-lg p-4">
-              {["Accueil", "À propos", "Expériences", "Projets", "Contact"].map((item) => (
+              {["Accueil", "À propos", "Expériences", "Formations", "Projets", "Contact"].map((item) => (
                 <a
                   key={item}
-                  href={`#${item.toLowerCase().replace("à propos", "about").replace("expériences", "experience")}`}
+                  href={`#${item.toLowerCase().replace("à propos", "about").replace("expériences", "experience").replace("formations", "formations")}`}
                   className="text-base font-medium text-slate-700 py-2 px-2 rounded hover:bg-slate-100"
                   onClick={() => setActiveSection('')}
                 >
@@ -449,10 +449,13 @@ export default function ModernPortfolio() {
       </section>
 
       {/* Section Formations */}
-      <section id="formations" className="py-4 px-2">
+      <section className="py-4 px-2">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-slate-900 to-slate-400 bg-clip-text text-transparent">
+            <h2
+              id="formations"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-slate-900 to-slate-400 bg-clip-text text-transparent scroll-mt-24"
+            >
               Formations
             </h2>
             <p className="text-base sm:text-xl text-gray-600">Un parcours académique et professionnel enrichissant</p>
