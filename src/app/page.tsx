@@ -149,22 +149,23 @@ export default function ModernPortfolio() {
   }, []);
 
   // Style global pour forcer le cursor: none partout sauf sur lien/bouton
-  useEffect(() => {
-    let styleTag = document.getElementById('force-cursor-none') as HTMLStyleElement | null;
-    if (!styleTag) {
-      styleTag = document.createElement('style');
-      styleTag.id = 'force-cursor-none';
-      document.head.appendChild(styleTag);
-    }
-    if (!isHoveringLink) {
-      styleTag.innerHTML = `* { cursor: none !important; }`;
-    } else {
-      styleTag.innerHTML = '';
-    }
-    return () => {
-      if (styleTag) styleTag.innerHTML = '';
-    };
-  }, [isHoveringLink]);
+  // SUPPRIMÉ : on rétablit le curseur normal partout
+  // useEffect(() => {
+  //   let styleTag = document.getElementById('force-cursor-none') as HTMLStyleElement | null;
+  //   if (!styleTag) {
+  //     styleTag = document.createElement('style');
+  //     styleTag.id = 'force-cursor-none';
+  //     document.head.appendChild(styleTag);
+  //   }
+  //   if (!isHoveringLink) {
+  //     styleTag.innerHTML = `* { cursor: none !important; }`;
+  //   } else {
+  //     styleTag.innerHTML = '';
+  //   }
+  //   return () => {
+  //     if (styleTag) styleTag.innerHTML = '';
+  //   };
+  // }, [isHoveringLink]);
 
   // Génération du path SVG d'un cercle ondulé
   function getWavyCirclePath(cx: number, cy: number, r: number, amplitude: number, phase: number, points = POINTS) {
@@ -185,33 +186,10 @@ export default function ModernPortfolio() {
   return (
     <div
       className="relative min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 text-gray-900 overflow-x-hidden"
-      style={{ cursor: isHoveringLink ? "pointer" : "none" }}
+      // Suppression du style cursor forcé, retour au comportement normal
     >
       {/* Cursor follower */}
-      {!isHoveringLink && (
-        <svg
-          width={36}
-          height={36}
-          className="fixed pointer-events-none z-50"
-          style={{
-            left: mousePosition.x - 18,
-            top: mousePosition.y - 18,
-            position: "fixed",
-            transform: `scale(${activeSection === "home" ? 1.7 : 1})`,
-          }}
-        >
-          <defs>
-            <linearGradient id="cursorGrad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#0f172a" />
-              <stop offset="100%" stopColor="#94a3b8" />
-            </linearGradient>
-          </defs>
-          <path
-            d={getWavyCirclePath(18, 18, 14, waveAmount, globalPhase)}
-            fill="url(#cursorGrad)"
-          />
-        </svg>
-      )}
+      {/* Suppression du cursor custom, retour au curseur natif */}
 
       {/* Animated background */}
       <div className="fixed inset-0 -z-10">
