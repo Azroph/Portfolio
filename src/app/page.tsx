@@ -706,7 +706,7 @@ export default function ModernPortfolio() {
 
           <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-slate-200/50 text-center">
             <p className="text-slate-500 text-xs sm:text-sm">
-              © 2025 Antoine Falgiglio. Conçu avec passion et Next.js. Tous droits réservés.
+              © 2025 Antoine Falgiglio. Conçu avec passion. Tous droits réservés.
             </p>
           </div>
         </div>
