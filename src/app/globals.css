@@ -53,3 +53,9 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+/* Surlignage personnalisé pour la sélection de texte */
+::selection {
+  background: rgba(30, 41, 59, 0.85); /* noir plus prononcé */
+  color: #fff;
+}
