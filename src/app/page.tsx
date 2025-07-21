@@ -79,6 +79,50 @@ const experiences = [
   },
 ]
 
+// Données des formations
+const educations = [
+  {
+    title: "Titre de la formation",
+    subtitle: "Sous-titre de la formation",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.",
+    date: "2018 - 2020",
+    school: "ESGI",
+    image: "/formation1.png",
+  },
+  {
+    title: "Titre de la formation 2",
+    subtitle: "Sous-titre de la formation 2",
+    description: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+    date: "2015 - 2018",
+    school: "ESGI",
+    image: "/formation2.png",
+  },
+  {
+    title: "Titre de la formation 2",
+    subtitle: "Sous-titre de la formation 2",
+    description: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+    date: "2015 - 2018",
+    school: "ESGI",
+    image: "/formation2.png",
+  },
+  {
+    title: "Titre de la formation 2",
+    subtitle: "Sous-titre de la formation 2",
+    description: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+    date: "2015 - 2018",
+    school: "ESGI",
+    image: "/formation2.png",
+  },
+  {
+    title: "Titre de la formation 2",
+    subtitle: "Sous-titre de la formation 2",
+    description: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+    date: "2015 - 2018",
+    school: "ESGI",
+    image: "/formation2.png",
+  },
+]
+
 export default function ModernPortfolio() {
   const [activeSection, setActiveSection] = useState("home")
   const [scrollY, setScrollY] = useState(0)
@@ -92,17 +136,10 @@ export default function ModernPortfolio() {
     }
   }, [])
 
-  // Suppression des effets liés au curseur custom et à l'animation
-
-  // Suppression de la fonction inutilisée getWavyCirclePath
-
   return (
     <div
       className="relative min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 text-gray-900 overflow-x-hidden"
-      // Suppression du style cursor forcé, retour au comportement normal
     >
-      {/* Cursor follower */}
-      {/* Suppression du cursor custom, retour au curseur natif */}
 
       {/* Animated background */}
       <div className="fixed inset-0 -z-10">
@@ -407,6 +444,38 @@ export default function ModernPortfolio() {
                 </div>
               )
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* Section Formations */}
+      <section id="formations" className="py-4 px-2">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-slate-900 to-slate-400 bg-clip-text text-transparent">
+              Formations
+            </h2>
+            <p className="text-base sm:text-xl text-gray-600">Un parcours académique et professionnel enrichissant</p>
+          </div>
+          <div className="flex flex-col gap-4">
+            {educations.map((edu, idx) => (
+              <div key={edu.title + edu.date + idx} className="flex items-center bg-white/80 rounded-xl border border-gray-200/50 p-4 shadow min-h-[72px]">
+                <div className="flex-shrink-0 mr-4">
+                  <div className="w-14 h-14 rounded-full overflow-hidden border border-gray-200 bg-gray-100 flex items-center justify-center">
+                    <img src={edu.image} alt={edu.title} className="object-cover w-full h-full" />
+                  </div>
+                </div>
+                <div className="flex-1 text-gray-700 min-w-0">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="text-base font-bold bg-gradient-to-r from-slate-900 to-slate-400 bg-clip-text text-transparent truncate max-w-[200px]">{edu.title}</span>
+                    <span className="text-sm text-slate-600 font-medium truncate max-w-[140px]">{edu.subtitle}</span>
+                    <span className="bg-gray-100 px-3 py-1 rounded-full text-sm text-gray-500">{edu.date}</span>
+                    <span className="bg-gray-100 px-3 py-1 rounded-full text-sm text-gray-500">{edu.school}</span>
+                  </div>
+                  <p className="text-[13px] text-gray-600 truncate max-w-full mt-1">{edu.description}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
