@@ -82,41 +82,41 @@ const experiences = [
 // Données des formations
 const educations = [
   {
-    title: "Mastère ingénierie du web",
-    subtitle: "Sous-titre de la formation",
-    description: "Programme: React, Next.js, TypeScript, Node.js, MongoDB, Figma",
+    title: "Mastère Ingénierie du Web",
+    subtitle: "Expert en ingénierie informatique",
+    description: "Programme: React / VueJS / NestJS / NodeJs / Flutter / Rust / CI/CD / Docker / Kubernetes",
     date: "2023 - 2025",
     school: "ESGI - Science U",
     image: "/formation1.png",
   },
   {
-    title: "Bachelor ingénierie du web",
-    subtitle: "Sous-titre de la formation 2",
-    description: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+    title: "Bachelor Ingénierie du Web",
+    subtitle: "Chargé de pro jets en Systèmes Informatiques Appliqués",
+    description: "Programme: PHP / Laravel / SQL / Git / WordPress / Sécurité Web / Ux & UI",
     date: "2022 - 2023",
     school: "ESGI - Science U",
     image: "/formation2.png",
   },
   {
-    title: "Titre de la formation 2",
-    subtitle: "Sous-titre de la formation 2",
-    description: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+    title: "Titre de Développeur Web",
+    subtitle: "Développeur Web et Web Mobile",
+    description: "Programme: JavaScript / React / Vue.js / Angular / PHP / Symfony / SQL / SEO",
     date: "2020 - 2022",
     school: "M2i Formation",
     image: "/formation2.png",
   },
   {
-    title: "Titre de la formation 2",
-    subtitle: "Sous-titre de la formation 2",
-    description: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+    title: "Diplôme des Métiers d’Art option Lumière",
+    subtitle: "Régie des Spectacles options Lumière",
+    description: "",
     date: "2015 - 2017",
     school: "Lycée Edouard Branly",
     image: "/formation2.png",
   },
   {
-    title: "Titre de la formation 2",
-    subtitle: "Sous-titre de la formation 2",
-    description: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+    title: "Baccalauréat Professionnel",
+    subtitle: "Système Electroniques et Numérique Audiovisuel",
+    description: "",
     date: "2013 - 2015",
     school: "Lycée Edouard Branly",
     image: "/formation2.png",
@@ -470,10 +470,10 @@ export default function ModernPortfolio() {
                     <div className="flex flex-col">
                       <span className="text-base font-bold bg-gradient-to-r from-slate-900 to-slate-400 bg-clip-text text-transparent">{edu.title}</span>
                       <span className="text-sm text-slate-600 font-medium">{edu.subtitle}</span>
+                      <span className="text-xs text-gray-500 mt-0.5">{edu.school}</span>
                     </div>
                     <div className="flex flex-col items-end min-w-fit ml-4">
                       <span className="bg-gray-100 px-3 py-1 rounded-full text-sm text-gray-500 mb-1">{edu.date}</span>
-                      <span className="bg-gray-100 px-3 py-1 rounded-full text-sm text-gray-500">{edu.school}</span>
                     </div>
                   </div>
                   <p className="text-[13px] text-gray-600 mt-1">{edu.description}</p>
