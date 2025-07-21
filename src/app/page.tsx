@@ -71,117 +71,19 @@ const experiences = [
 export default function ModernPortfolio() {
   const [activeSection, setActiveSection] = useState("home")
   const [scrollY, setScrollY] = useState(0)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const [isMoving, setIsMoving] = useState(false)
-  const [lastMove, setLastMove] = useState(Date.now())
-  const [waveAmount, setWaveAmount] = useState(0)
-  const POINTS = 20;
-  const [globalPhase, setGlobalPhase] = useState(0);
-  const [targetPhase, setTargetPhase] = useState(0);
-  const [isHoveringLink, setIsHoveringLink] = useState(false);
+  // Suppression des hooks et variables inutilisés
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY)
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
-      setIsMoving(true)
-      setLastMove(Date.now())
-    }
-
     window.addEventListener("scroll", handleScroll)
-    window.addEventListener("mousemove", handleMouseMove)
-
     return () => {
       window.removeEventListener("scroll", handleScroll)
-      window.removeEventListener("mousemove", handleMouseMove)
     }
   }, [])
 
-  useEffect(() => {
-    if (!isMoving) return;
-    const timeout = setTimeout(() => {
-      if (Date.now() - lastMove > 80) setIsMoving(false)
-    }, 100)
-    return () => clearTimeout(timeout)
-  }, [isMoving, lastMove])
+  // Suppression des effets liés au curseur custom et à l'animation
 
-  useEffect(() => {
-    let animId: number | undefined;
-    function animate() {
-      setWaveAmount((prev) => {
-        if (isMoving) {
-          return prev < 0.5 ? Math.min(0.5, prev + 0.03) : 0.5;
-        } else {
-          return prev > 0 ? Math.max(0, prev - 0.02) : 0;
-        }
-      });
-      setTargetPhase((prev) => (isMoving && Math.random() < 0.02 ? prev + (Math.random() - 0.5) * Math.PI : prev));
-      setGlobalPhase((prev) => prev + (targetPhase - prev) * 0.08);
-      animId = requestAnimationFrame(animate);
-    }
-    animId = requestAnimationFrame(animate);
-    return () => {
-      if (animId !== undefined) cancelAnimationFrame(animId);
-    };
-  }, [isMoving, targetPhase]);
-
-  useEffect(() => {
-    function onMouseMove(e: MouseEvent) {
-      const el = document.elementFromPoint(e.clientX, e.clientY) as HTMLElement | null;
-      let current = el;
-      while (current) {
-        if (
-          (current.tagName === 'A' && (current as HTMLAnchorElement).href) ||
-          current.tagName === 'BUTTON' ||
-          current.getAttribute('role') === 'button'
-        ) {
-          setIsHoveringLink(true);
-          return;
-        }
-        current = current.parentElement;
-      }
-      setIsHoveringLink(false);
-    }
-    window.addEventListener('mousemove', onMouseMove);
-    return () => {
-      window.removeEventListener('mousemove', onMouseMove);
-    };
-  }, []);
-
-  // Style global pour forcer le cursor: none partout sauf sur lien/bouton
-  // SUPPRIMÉ : on rétablit le curseur normal partout
-  // useEffect(() => {
-  //   let styleTag = document.getElementById('force-cursor-none') as HTMLStyleElement | null;
-  //   if (!styleTag) {
-  //     styleTag = document.createElement('style');
-  //     styleTag.id = 'force-cursor-none';
-  //     document.head.appendChild(styleTag);
-  //   }
-  //   if (!isHoveringLink) {
-  //     styleTag.innerHTML = `* { cursor: none !important; }`;
-  //   } else {
-  //     styleTag.innerHTML = '';
-  //   }
-  //   return () => {
-  //     if (styleTag) styleTag.innerHTML = '';
-  //   };
-  // }, [isHoveringLink]);
-
-  // Génération du path SVG d'un cercle ondulé
-  function getWavyCirclePath(cx: number, cy: number, r: number, amplitude: number, phase: number, points = POINTS) {
-    let d = "";
-    for (let i = 0; i <= points; i++) {
-      const theta = (i / points) * 2 * Math.PI;
-      // Onde sinusoïdale douce, 1 cycle
-      const localAmp = amplitude * Math.sin(theta + phase);
-      const rad = r + localAmp;
-      const x = cx + rad * Math.cos(theta);
-      const y = cy + rad * Math.sin(theta);
-      d += i === 0 ? `M${x},${y}` : `L${x},${y}`;
-    }
-    d += "Z";
-    return d;
-  }
+  // Suppression de la fonction inutilisée getWavyCirclePath
 
   return (
     <div
@@ -622,10 +524,17 @@ export default function ModernPortfolio() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-8 mb-8 sm:mb-12">
+            {/* Email */}
             <div className="group bg-white/80 backdrop-blur-xl rounded-2xl p-4 sm:p-6 border border-gray-200/50 hover:border-slate-200 transition-all duration-300 shadow-lg hover:shadow-xl">
-              <div className="p-2 sm:p-3 bg-gradient-to-r from-slate-500 to-slate-600 rounded-2xl w-fit mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">
+              <a
+                href="mailto:antoine.falgiglio@gmail.com"
+                className="p-2 sm:p-3 bg-gradient-to-r from-slate-500 to-slate-600 rounded-2xl w-fit mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300 block"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Envoyer un email"
+              >
                 <Mail className="w-5 h-6 sm:w-6 sm:h-6 text-white" />
-              </div>
+              </a>
               <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-1 sm:mb-2">Email</h3>
               <p className="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-4">Réponse sous 24h</p>
               <a href="mailto:antoine.falgiglio@email.com" className="text-slate-600 hover:text-slate-700 font-medium text-xs sm:text-base">
@@ -633,25 +542,39 @@ export default function ModernPortfolio() {
               </a>
             </div>
 
+            {/* LinkedIn */}
             <div className="group bg-white/80 backdrop-blur-xl rounded-2xl p-4 sm:p-6 border border-gray-200/50 hover:border-slate-200 transition-all duration-300 shadow-lg hover:shadow-xl">
-              <div className="p-2 sm:p-3 bg-gradient-to-r from-slate-500 to-slate-600 rounded-2xl w-fit mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">
+              <a
+                href="https://www.linkedin.com/in/antoine-falgiglio/"
+                className="p-2 sm:p-3 bg-gradient-to-r from-slate-500 to-slate-600 rounded-2xl w-fit mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300 block"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Voir le profil LinkedIn"
+              >
                 <Linkedin className="w-5 h-6 sm:w-6 sm:h-6 text-white" />
-              </div>
+              </a>
               <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-1 sm:mb-2">LinkedIn</h3>
               <p className="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-4">Restons connectés</p>
-              <a href="#" className="text-slate-600 hover:text-slate-700 font-medium text-xs sm:text-base">
+              <a href="https://www.linkedin.com/in/antoine-falgiglio/" className="text-slate-600 hover:text-slate-700 font-medium text-xs sm:text-base" target="_blank" rel="noopener noreferrer">
                 /in/antoine-falgiglio
               </a>
             </div>
 
+            {/* GitHub */}
             <div className="group bg-white/80 backdrop-blur-xl rounded-2xl p-4 sm:p-6 border border-gray-200/50 hover:border-gray-300 transition-all duration-300 shadow-lg hover:shadow-xl">
-              <div className="p-2 sm:p-3 bg-gradient-to-r from-gray-700 to-gray-800 rounded-2xl w-fit mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">
+              <a
+                href="https://github.com/Azroph"
+                className="p-2 sm:p-3 bg-gradient-to-r from-gray-700 to-gray-800 rounded-2xl w-fit mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300 block"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Voir le profil GitHub"
+              >
                 <Github className="w-5 h-6 sm:w-6 sm:h-6 text-white" />
-              </div>
+              </a>
               <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-1 sm:mb-2">GitHub</h3>
               <p className="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-4">Voir mon code</p>
-              <a href="#" className="text-gray-700 hover:text-gray-800 font-medium text-xs sm:text-base">
-                /antoine-falgiglio
+              <a href="https://github.com/Azroph" className="text-gray-700 hover:text-gray-800 font-medium text-xs sm:text-base" target="_blank" rel="noopener noreferrer">
+                /Azroph
               </a>
             </div>
           </div>
@@ -660,8 +583,7 @@ export default function ModernPortfolio() {
             className="group relative px-8 sm:px-12 py-3 sm:py-4 bg-gradient-to-r from-slate-900 to-slate-500 text-white rounded-2xl font-bold text-base sm:text-lg hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl"
             style={{ cursor: 'pointer' }}
             onClick={() => { window.location.href = 'mailto:antoine.falgiglio@gmail.com'; }}
-            onMouseEnter={() => setIsHoveringLink(true)}
-            onMouseLeave={() => setIsHoveringLink(false)}
+            // Suppression des effets liés au curseur custom
           >
             <span className="relative z-10 flex items-center gap-2">
               <Mail className="w-5 h-5" />
