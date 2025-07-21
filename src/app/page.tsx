@@ -66,6 +66,15 @@ const experiences = [
     icon: Palette,
     color: "from-slate-900 to-slate-400",
   },
+  {
+    company: "Maison de la Danse",
+    title: "Régisseur lumière",
+    period: "2015 - 2020",
+    description: "Programmation de pupitres lumière, installation du matériel électrique scénique, calcul des puissances électriques, accueil des compagnies de danse, restitution d'effets lumière en temps réel pendant les spectacles.",
+    icon: Sparkles,
+    color: "from-slate-900 to-slate-400",
+    subtitle: "Régisseur lumière pour des spectacles en salle",
+  },
 ]
 
 export default function ModernPortfolio() {
@@ -382,20 +391,15 @@ export default function ModernPortfolio() {
                         <div>
                           <h3 className="text-lg sm:text-xl font-bold text-gray-900">{exp.title}</h3>
                           <p className="text-slate-800 font-medium text-sm">{exp.company}</p>
+                          {exp.subtitle && (
+                            <h4 className="text-base sm:text-lg font-semibold text-slate-800 mb-2">
+                              {exp.subtitle}
+                            </h4>
+                          )}
                         </div>
                       </div>
                       <span className="text-xs sm:text-sm text-gray-500 bg-gray-100 px-2 sm:px-3 py-1 rounded-full">{exp.period}</span>
                     </div>
-                    {exp.company === "Bedrock Streaming" && (
-                      <h4 className="text-base sm:text-lg font-semibold text-slate-800 mb-2">
-                        Développement d&#39;applications de streaming sur TV (Core)
-                      </h4>
-                    )}
-                    {exp.company === "Agence EVOL" && (
-                      <h4 className="text-base sm:text-lg font-semibold text-slate-800 mb-2">
-                        Développement Backend et Frontend de sites internet sur mesure
-                      </h4>
-                    )}
                     <p className="text-gray-700 leading-relaxed text-sm sm:text-base whitespace-pre-line">{exp.description}</p>
                   </div>
                 </div>
