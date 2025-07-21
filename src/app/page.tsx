@@ -102,7 +102,7 @@ const educations = [
     subtitle: "Sous-titre de la formation 2",
     description: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
     date: "2020 - 2022",
-    school: "M2i",
+    school: "M2i Formation",
     image: "/formation2.png",
   },
   {
@@ -110,7 +110,7 @@ const educations = [
     subtitle: "Sous-titre de la formation 2",
     description: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
     date: "2015 - 2017",
-    school: "Edouard Branly",
+    school: "Lycée Edouard Branly",
     image: "/formation2.png",
   },
   {
@@ -118,7 +118,7 @@ const educations = [
     subtitle: "Sous-titre de la formation 2",
     description: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
     date: "2013 - 2015",
-    school: "Edouard Branly",
+    school: "Lycée Edouard Branly",
     image: "/formation2.png",
   },
 ]
@@ -465,14 +465,18 @@ export default function ModernPortfolio() {
                     <img src={edu.image} alt={edu.title} className="object-cover w-full h-full" />
                   </div>
                 </div>
-                <div className="flex-1 text-gray-700 min-w-0">
-                  <div className="flex flex-wrap items-center gap-3">
-                    <span className="text-base font-bold bg-gradient-to-r from-slate-900 to-slate-400 bg-clip-text text-transparent truncate max-w-[200px]">{edu.title}</span>
-                    <span className="text-sm text-slate-600 font-medium truncate max-w-[140px]">{edu.subtitle}</span>
-                    <span className="bg-gray-100 px-3 py-1 rounded-full text-sm text-gray-500">{edu.date}</span>
-                    <span className="bg-gray-100 px-3 py-1 rounded-full text-sm text-gray-500">{edu.school}</span>
+                <div className="flex-1 text-gray-700">
+                  <div className="flex items-start justify-between w-full">
+                    <div className="flex flex-col">
+                      <span className="text-base font-bold bg-gradient-to-r from-slate-900 to-slate-400 bg-clip-text text-transparent">{edu.title}</span>
+                      <span className="text-sm text-slate-600 font-medium">{edu.subtitle}</span>
+                    </div>
+                    <div className="flex flex-col items-end min-w-fit ml-4">
+                      <span className="bg-gray-100 px-3 py-1 rounded-full text-sm text-gray-500 mb-1">{edu.date}</span>
+                      <span className="bg-gray-100 px-3 py-1 rounded-full text-sm text-gray-500">{edu.school}</span>
+                    </div>
                   </div>
-                  <p className="text-[13px] text-gray-600 truncate max-w-full mt-1">{edu.description}</p>
+                  <p className="text-[13px] text-gray-600 mt-1">{edu.description}</p>
                 </div>
               </div>
             ))}
