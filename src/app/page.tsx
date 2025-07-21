@@ -53,10 +53,11 @@ const experiences = [
   {
     company: "Bedrock Streaming",
     title: "Développeur Frontend",
-    period: "2023 - Aujourd'hui",
+    period: "2023 - 2025",
     description: "Conception et développement d'interfaces utilisateur performantes et réactives, optimisées pour l'expérience sur téléviseurs connectés.\n\nImplémentation de la navigation (clavier/télécommande), gestion des favoris, des pages de catalogues dynamiques, et du moteur de recherche.\n\nCollaboration étroite avec les équipes design, backend et produit.",
     icon: Code,
     color: "from-slate-900 to-slate-400",
+    subtitle: "Développement d'applications de streaming sur TV (Core)",
   },
   {
     company: "Agence EVOL",
@@ -65,6 +66,7 @@ const experiences = [
     description: "Développement de plus d'une trentaine de sites vitrine sur mesure en autonomie.\n\nDéveloppement de thèmes WordPress personnalisés et de sites e-commerce.\n\nRelation directe avec les clients, gestion des retours en fonction des demandes et du devis, réalisation de tests techniques et mise en production des sites internet.\n\nRedirections et gestion de données via API et modules de Cron Job.\n\nMise en place de solutions automatiques de sauvegarde de données pour les maintenances des sites internet.",
     icon: Palette,
     color: "from-slate-900 to-slate-400",
+    subtitle: "Développement Backend et Frontend de sites internet sur mesure",
   },
   {
     company: "Maison de la Danse",
