@@ -247,14 +247,14 @@ export default function ModernPortfolio() {
           <div className="mb-6 sm:mb-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 rounded-full text-slate-800 font-medium text-xs sm:text-sm mb-4 sm:mb-6">
               <Sparkles className="w-4 h-4" />
-              Disponible pour de nouveaux projets
+              Antoine Falgiglio
             </div>
             <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-400 bg-clip-text text-transparent">
               Créateur
             </h1>
             <h2 className="text-2xl sm:text-4xl md:text-6xl font-light mb-6 sm:mb-8 text-gray-700">d&#39;expériences digitales</h2>
             <p className="text-base sm:text-xl md:text-2xl text-gray-600 max-w-xs sm:max-w-3xl mx-auto leading-relaxed">
-              Je transforme vos idées en applications web modernes, performantes et élégantes qui marquent les esprits
+              Vos idées deviennent des applications web modernes, rapides et élégantes, conçues pour laisser une impression durable.
             </p>
           </div>
 
