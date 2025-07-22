@@ -166,7 +166,7 @@ export default function ModernPortfolio() {
             <div className="flex items-center space-x-3 sm:space-x-4">
               <div className="relative">
                 <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-slate-900 to-slate-400 rounded-2xl flex items-center justify-center font-bold text-lg text-white shadow-lg">
-                  AF
+                  <Code className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
                 </div>
                 <div className="absolute -inset-1 bg-gradient-to-r from-slate-900 to-slate-400 rounded-2xl blur opacity-20" />
               </div>
@@ -686,7 +686,7 @@ export default function ModernPortfolio() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
             <div className="flex items-center gap-3 sm:gap-4">
               <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-slate-900 to-slate-400 rounded-xl flex items-center justify-center font-bold text-white shadow-lg">
-                AF
+                <Code className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
               </div>
               <div>
                 <p className="text-slate-800 font-medium text-sm sm:text-base">Antoine Falgiglio</p>
