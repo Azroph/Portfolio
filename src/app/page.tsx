@@ -14,7 +14,6 @@ import {
   Github,
   Linkedin,
   ArrowRight,
-  Star,
   Download,
   Sparkles,
 } from "lucide-react"
